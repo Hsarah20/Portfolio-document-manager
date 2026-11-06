@@ -27,7 +27,7 @@ L'application est prête sur **https://localhost:8443**.
 ## Comptes de test
 
 | Rôle        | Email                       | Mot de passe |
-|-------------|-----------------------------|--- ----------|
+|---          |---                          |---           |
 | Admin       | `admin@docmanager.fr`       | `admin1234`  |
 | Client ACME | `client-acme@docmanager.fr` | `client1234` |
 | Client BETA | `client-beta@docmanager.fr` | `client1234` |
