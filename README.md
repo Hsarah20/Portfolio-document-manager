@@ -32,18 +32,17 @@ L'application est prête sur **https://localhost:8443**.
 | Client ACME | `client-acme@docmanager.fr` | `client1234` |
 | Client BETA | `client-beta@docmanager.fr` | `client1234` |
 
----
 
 
 ## Acces aux services 
 
-Service	            URL	                       Identifiants
-Application	        https://localhost:8443	   
-Mailpit (emails)	http://localhost:8026	    —
-pgAdmin	            http://localhost:8081	   admin@example.com / admin
-PostgreSQL	        localhost:5433	           docs / docs / db docs
+| Service	            | URL	                       | Identifiants               |
+|---                    |---                           |---                         |
+| Application	        | https://localhost:8443	   | _                          |
+| Mailpit (emails)	    | http://localhost:8026	       | —                          |
+| pgAdmin	            | http://localhost:8081	       | admin@example.com / admin  |
+| PostgreSQL	        | localhost:5433	           | docs / docs / db docs      |
 
----
 
 ## Connexion à la base via pgAdmin 
 
@@ -72,6 +71,7 @@ PostgreSQL	        localhost:5433	           docs / docs / db docs
     *database est le nom du service Docker PostgreSQL. localhost pointerait vers pgAdmin lui-même.
 
 ----   
+
 ## Tests (PHPUnit)
 
 Le projet dispose de **12 tests automatisés** couvrant la logique métier critique et le cloisonnement des données.
@@ -101,15 +101,10 @@ make test-functional # tests fonctionnels uniquement
 
 ---
 
-## Documentation
-
-[Makefile](Makefile)                         | Toutes les commandes utiles       
-
----
 
 ## Commandes les plus utilisées
 
-```bashDétails dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+```bash
 make help            # liste toutes les commandes
 make init            # build + up + migrate + fixtures
 make logs-worker     # surveiller le worker Messenger
