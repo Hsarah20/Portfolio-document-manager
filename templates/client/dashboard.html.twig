@@ -1,9 +1,114 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Espace client — DocManager{% endblock %}
+{% block title %}Tableau de bord — DocManager{% endblock %}
 
 {% block body %}
-    <h1>Espace client</h1>
-    <p>Connecté en tant que <strong>{{ app.user.email }}</strong></p>
-    <p>Dossier : <strong>{{ app.user.client ? app.user.client.name : 'Aucun' }}</strong></p>
+<div class="dashboard-container">
+
+    {# --- En-tête de bienvenue --- #}
+    <section class="dashboard-hero">
+        <div>
+            <h1>Bonjour, {{ app.user.email|split('@')[0] }} 👋</h1>
+            <p class="dashboard-subtitle">
+                Voici un aperçu de votre espace documentaire pour <strong>{{ app.user.client.name }}</strong>.
+            </p>
+        </div>
+        <div class="dashboard-actions-quick">
+            <a href="{{ path('app_client_document_upload') }}" class="btn-primary btn-large">
+                📁 Déposer un document
+            </a>
+        </div>
+    </section>
+
+    {# --- KPIs --- #}
+    <section class="dashboard-kpis">
+        <div class="kpi-card">
+            <span class="kpi-icon">📄</span>
+            <span class="kpi-value">{{ totalDocuments }}</span>
+            <span class="kpi-label">Documents au total</span>
+        </div>
+        <div class="kpi-card kpi-warning">
+            <span class="kpi-icon">⏳</span>
+            <span class="kpi-value">{{ documentsInProgress }}</span>
+            <span class="kpi-label">En cours d'analyse</span>
+        </div>
+        <div class="kpi-card kpi-danger">
+            <span class="kpi-icon">⚠️</span>
+            <span class="kpi-value">{{ documentsFailed }}</span>
+            <span class="kpi-label">En échec</span>
+        </div>
+    </section>
+
+    {# --- Actions rapides --- #}
+    <section class="dashboard-shortcuts">
+        <h2>Actions rapides</h2>
+        <div class="shortcuts-grid">
+            <a href="{{ path('app_client_document_upload') }}" class="shortcut-card">
+                <div class="shortcut-icon">📤</div>
+                <div>
+                    <h3>Déposer un document</h3>
+                    <p>Envoyez une nouvelle pièce pour analyse</p>
+                </div>
+            </a>
+            <a href="{{ path('app_client_document_list') }}" class="shortcut-card">
+                <div class="shortcut-icon">📋</div>
+                <div>
+                    <h3>Mes documents</h3>
+                    <p>Consultez et filtrez tous vos documents</p>
+                </div>
+            </a>
+            <a href="{{ path('app_client_document_bulk_form') }}" class="shortcut-card">
+                <div class="shortcut-icon">🏷️</div>
+                <div>
+                    <h3>Classer en masse</h3>
+                    <p>Assignez nature et période à plusieurs documents</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    {# --- Documents récents --- #}
+    <section class="dashboard-recent">
+        <div class="dashboard-section-header">
+            <h2>Documents récents</h2>
+            {% if recentDocuments is not empty %}
+                <a href="{{ path('app_client_document_list') }}" class="btn-secondary btn-sm">
+                    Tout voir →
+                </a>
+            {% endif %}
+        </div>
+
+        {% if recentDocuments is empty %}
+            <div class="empty-state">
+                <div class="empty-icon">📁</div>
+                <h3>Aucun document pour l'instant</h3>
+                <p>Commencez par déposer votre premier document pour qu'il soit analysé.</p>
+                <a href="{{ path('app_client_document_upload') }}" class="btn-primary">
+                    Déposer un document
+                </a>
+            </div>
+        {% else %}
+            <div class="recent-list">
+                {% for doc in recentDocuments %}
+                    <a href="{{ path('app_client_document_show', {id: doc.id}) }}" class="recent-item">
+                        <div class="recent-icon">📄</div>
+                        <div class="recent-main">
+                            <div class="recent-title">{{ doc.originalName }}</div>
+                            <div class="recent-meta">
+                                {% if doc.nature %}{{ doc.nature.label() }}{% else %}Non classé{% endif %}
+                                · {{ doc.createdAt|date('d/m/Y') }}
+                            </div>
+                        </div>
+                        <div class="recent-status">
+                            <span class="badge badge-{{ doc.status.color() }}">
+                                {{ doc.status.label() }}
+                            </span>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </section>
+
+</div>
 {% endblock %}

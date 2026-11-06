@@ -116,4 +116,40 @@ class DocumentRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleColumnResult();
     }
+
+    /**
+     * Compte les documents d'un client, avec un filtre optionnel par statut(s).
+     *
+     * @param DocumentStatus[]|null $statuses Si null, compte tous les documents
+     */
+    public function countForClient(Client $client, ?array $statuses = null): int
+    {
+        $qb = $this->createQueryBuilder('d')
+            ->select('COUNT(d.id)')
+            ->andWhere('d.client = :client')
+            ->setParameter('client', $client);
+
+        if ($statuses !== null && !empty($statuses)) {
+            $qb->andWhere('d.status IN (:statuses)')
+            ->setParameter('statuses', $statuses);
+        }
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Récupère les N derniers documents d'un client.
+     *
+     * @return Document[]
+     */
+    public function findRecentForClient(Client $client, int $limit = 5): array
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.client = :client')
+            ->setParameter('client', $client)
+            ->orderBy('d.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -1,15 +1,111 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil — DocManager{% endblock %}
+{% block title %}DocManager — Gérez vos documents juridiques{% endblock %}
 
 {% block body %}
-    <h1>Espace documentaire DocManager</h1>
+<div class="landing-hero">
+    <div class="landing-content">
+        <span class="landing-badge">Nouvelle génération d'espace documentaire</span>
+        
+        <h1 class="landing-title">
+            Gérez vos documents juridiques <span class="text-accent">en toute simplicité</span>.
+        </h1>
+        
+        <p class="landing-subtitle">
+            DocManager est la plateforme sécurisée qui centralise vos pièces comptables et sociales. 
+            Déposez, analysez et suivez vos documents en un clin d'œil. Une solution moderne pour les entreprises exigeantes.
+        </p>
+        
+        <div class="landing-actions">
+            <a href="{{ path('app_login') }}" class="btn-primary btn-large">Accéder à mon espace</a>
+            <a href="#features" class="btn-secondary btn-large">Découvrir les fonctionnalités</a>
+        </div>
 
-    <div data-controller="hello" data-hello-name-value="DOC_MANAGER">
-        <p>Test Stimulus :</p>
-        <button type="button" data-action="click->hello#greet">
-            Dire bonjour
-        </button>
-        <p data-hello-target="output"></p>
+        <p class="landing-note">
+            Déjà client ? Connectez-vous avec vos identifiants professionnels.
+        </p>
     </div>
+
+    <div class="landing-visual">
+        <div class="landing-card-mockup">
+            <div class="mockup-header">
+                <span class="mockup-dot red"></span>
+                <span class="mockup-dot yellow"></span>
+                <span class="mockup-dot green"></span>
+            </div>
+            <div class="mockup-body">
+                <div class="mockup-row"></div>
+                <div class="mockup-row short"></div>
+                <div class="mockup-badge">Document analysé ✓</div>
+                <div class="mockup-row"></div>
+                <div class="mockup-row short"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="features" class="features-section">
+    <div class="features-header">
+        <h2>Pourquoi choisir DocManager ?</h2>
+        <p class="features-subtitle">
+            Une plateforme pensée pour les dirigeants et leurs équipes, avec une exigence absolue sur la sécurité et la simplicité.
+        </p>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Sécurité maximale</h3>
+            <p>Vos données sont cloisonnées et chiffrées. Seuls les membres autorisés de votre entreprise y ont accès.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Analyse rapide</h3>
+            <p>Nos algorithmes traitent vos pièces en quelques secondes pour vous fournir un retour immédiat sur leur conformité.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Suivi en temps réel</h3>
+            <p>Suivez l'état d'avancement de chaque document grâce à une timeline claire, détaillée et persistante.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">☁️</div>
+            <h3>Archivage illimité</h3>
+            <p>Centralisez l'ensemble de vos pièces comptables et juridiques dans un espace unique, accessible à tout moment.</p>
+        </div>
+    </div>
+</section>
+
+<section class="about-section">
+    <div class="about-content">
+        <h2>À propos de DocManager</h2>
+        <p>
+            Fondée par des experts-comptables et des ingénieurs, DocManager accompagne les dirigeants dans la gestion 
+            de leur documentation légale. Notre mission : <strong>simplifier la conformité</strong> pour que vous puissiez 
+            vous concentrer sur l'essentiel — la croissance de votre entreprise.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore 
+            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+        </p>
+        <div class="about-stats">
+            <div class="stat">
+                <span class="stat-value">2 500+</span>
+                <span class="stat-label">Entreprises clientes</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">120k</span>
+                <span class="stat-label">Documents traités</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">99.9%</span>
+                <span class="stat-label">Disponibilité</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="landing-footer">
+    <p>© 2026 DocManager — Tous droits réservés.</p>
+</footer>
 {% endblock %}
