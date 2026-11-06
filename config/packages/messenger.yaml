@@ -1,0 +1,43 @@
+framework:
+    messenger:
+        failure_transport: failed
+
+        default_bus: command.bus
+
+
+        buses:
+            command.bus:
+                middleware:
+                    - validation
+                    - doctrine_transaction
+
+            query.bus:
+                middleware:
+                    - validation
+
+
+            event.bus:
+                default_middleware: allow_no_handlers
+                middleware:
+                    - validation
+
+
+        transports:
+            async:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                retry_strategy:
+                    max_retries: 3
+                    multiplier: 2
+            failed:
+                dsn: 'doctrine://default?queue_name=failed'
+            sync: 'sync://'
+
+
+        routing:
+            Symfony\Component\Mailer\Messenger\SendEmailMessage: async
+            Symfony\Component\Notifier\Message\ChatMessage: async
+            Symfony\Component\Notifier\Message\SmsMessage: async
+            App\UseCase\Document\Analyze\AnalyzeDocumentCommand: async
+
+            # Route your messages to the transports
+            # 'App\Message\YourMessage': async

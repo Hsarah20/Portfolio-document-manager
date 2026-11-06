@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes documents — DocManager{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    <h1>Mes documents</h1>
+</div>
+
+{% include 'partials/_filters_client.html.twig' %}
+
+<p class="total-info">
+    {{ pagination.totalItemCount }} document(s)
+    {% if pagination.pageCount > 1 %}
+        — page {{ pagination.currentPageNumber }} / {{ pagination.pageCount }}
+    {% endif %}
+</p>
+
+{% include 'partials/_document_table.html.twig' with {
+    pagination: pagination,
+    routePrefix: 'app_client_document_',
+    showClient: false
+} %}
+{% endblock %}

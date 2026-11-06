@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil — DocManager{% endblock %}
+
+{% block body %}
+    <h1>Espace documentaire DocManager</h1>
+
+    <div data-controller="hello" data-hello-name-value="DOC_MANAGER">
+        <p>Test Stimulus :</p>
+        <button type="button" data-action="click->hello#greet">
+            Dire bonjour
+        </button>
+        <p data-hello-target="output"></p>
+    </div>
+{% endblock %}

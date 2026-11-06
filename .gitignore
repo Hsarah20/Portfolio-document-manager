@@ -1,0 +1,31 @@
+# --- Artefacts de build / shell ---
+CACHED
+=
+transfering
+[*
+*_php
+*_worker
+*.log
+*.tmp
+
+# --- Environnement ---
+.env
+.env.dev
+.env.test
+.env.local
+.env.*.local
+
+# --- Symfony ---
+/vendor/
+/var/
+/public/assets/
+/public/bundles/
+
+# --- IDE ---
+.idea/
+.vscode/
+*.swp
+
+# --- OS ---
+.DS_Store
+Thumbs.db

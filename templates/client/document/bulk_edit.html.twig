@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classer en masse — DocManager{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    <h1>Classer en masse</h1>
+    <p class="muted">{{ documents|length }} document(s) non classé(s)</p>
+</div>
+
+{% if documents is empty %}
+    <div class="empty-state">
+        <p>Tous vos documents sont classés. 👌</p>
+        <a href="{{ path('app_client_document_list') }}" class="btn-secondary">Retour à la liste</a>
+    </div>
+{% else %}
+    <form method="post" action="{{ path('app_client_document_bulk_form') }}" class="metadata-form" data-turbo="false">
+        <input type="hidden" name="_token" value="{{ csrf_token('bulk_edit') }}">
+
+        <div class="document-card">
+            <table class="document-table">
+                <thead>
+                    <tr>
+                        <th style="width: 40px;">
+                            <input type="checkbox" id="select-all" class="bulk-checkbox">
+                        </th>
+                        <th>Nom</th>
+                        <th>Déposé le</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for doc in documents %}
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="document_ids[]" value="{{ doc.id }}" class="bulk-checkbox">
+                        </td>
+                        <td>{{ doc.originalName }}</td>
+                        <td>{{ doc.createdAt|date('d/m/Y') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="document-card document-metadata-edit" style="margin-top: 1.5rem;">
+            <h2>Appliquer à la sélection</h2>
+
+            <div class="metadata-fields">
+                <div class="form-field">
+                    <label for="bulk-nature">Nature du document</label>
+                    <select name="nature" id="bulk-nature">
+                        <option value="">— Ne pas modifier —</option>
+                        {% for nature in natures %}
+                            <option value="{{ nature.value }}">{{ nature.label() }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                {# Changement ici : on utilise une classe dédiée pour la ligne #}
+                <div class="form-date-row">
+                    <div class="form-field">
+                        <label for="bulk-periodYear">Année</label>
+                        <input type="number" name="periodYear" id="bulk-periodYear"
+                               min="2000" max="2100" placeholder="2024">
+                    </div>
+
+                    <div class="form-field">
+                        <label for="bulk-periodMonth">Mois</label>
+                        <select name="periodMonth" id="bulk-periodMonth">
+                            <option value="">— Ne pas modifier —</option>
+                            {% set mois = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'] %}
+                            {% for i in 1..12 %}
+                                <option value="{{ i }}">{{ mois[i-1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Appliquer à la sélection</button>
+                <a href="{{ path('app_client_document_list') }}" class="btn-secondary">Annuler</a>
+            </div>
+        </div>
+    </form>
+
+    <script>
+    document.getElementById('select-all')?.addEventListener('change', (e) => {
+        document.querySelectorAll('input[name="document_ids[]"]').forEach(cb => cb.checked = e.target.checked);
+    });
+    </script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}DocManager{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📁</text></svg>">
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+    {% endblock %}
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <nav class="header-nav">
+            <a href="{{ path('app_home') }}" class="brand">DocManager</a>
+
+            <div class="header-actions">
+                {% if app.user %}
+                    <span class="user-info">
+                        {{ app.user.email }}
+                        {% if app.user.client %}<small>({{ app.user.client.name }})</small>{% endif %}
+                    </span>
+                    <a href="{{ path('app_logout') }}" class="btn-logout">Déconnexion</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}">Connexion</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% include 'partials/_nav.html.twig' %}
+
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ type == 'error' ? 'danger' : (type == 'success' ? 'success' : 'info') }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {% block body %}{% endblock %}
+    </main>
+</body>
+</html>
