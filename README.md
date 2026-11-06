@@ -15,8 +15,8 @@ Ce MVP permet :
 ## Démarrage rapide
 
 ```bash
-git clone 
-cd 
+git clone https://github.com/Hsarah20/Portfolio-document-manager.git
+cd Portfolio-document-manager
 make init
 ```
 
