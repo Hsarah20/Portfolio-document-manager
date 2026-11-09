@@ -101,6 +101,25 @@ make test-functional # tests fonctionnels uniquement
 
 ---
 
+## Captures d'écran
+
+<table>
+  <tr>
+    <td><img src="public/images/screenshots/01-landing.png" alt="Landing page"></td>
+    <td><img src="public/images/screenshots/02-dashboard-client.png" alt="Dashboard client"></td>
+  </tr>
+  <tr>
+    <td><img src="public/images/screenshots/03-upload.png" alt="Dépôt de documents"></td>
+    <td><img src="public/images/screenshots/04-document-detail.png" alt="Détail document"></td>
+  </tr>
+  <tr>
+    <td><img src="public/images/screenshots/05-dashboard-admin.png" alt="Dashboard admin"></td>
+    <td><img src="public/images/screenshots/06-admin-documents.png" alt="Liste admin"></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="public/images/screenshots/07-bulk-edit.png" alt="Classement en masse"></td>
+  </tr>
+</table>
 
 ## Commandes les plus utilisées
 
